@@ -2,9 +2,11 @@
 // They apply straight away on every open page (the 'breathing:settings' event)
 // and before first paint on the next one (js/settings-boot.js reads the same key).
 export const SETTINGS_KEY = 'breathing:settings';
-export const DEFAULTS = { theme: 'system', particles: 'on', sound: true, volume: 0.6, keepAwake: true, vibration: true, vibrationStyle: 'taps' };
+export const DEFAULTS = { theme: 'system', particles: 'webgl', sound: true, volume: 0.6, keepAwake: true, vibration: true, vibrationStyle: 'taps' };
 export const THEMES = ['system', 'light', 'dark'];
-// 'webgl' is a test of a richer particle layer (see js/components/particles-gl.js).
+// 'webgl' (the default) draws a richer particle layer on one canvas
+// (js/components/particles-gl.js); 'on' is the standard one, and the fallback
+// where WebGL isn't available.
 export const PARTICLES = ['on', 'off', 'webgl'];
 // Continuous: inhale ramps soft to strong, exhale strong to soft (Android app only).
 export const VIBRATION_STYLES = ['taps', 'continuous'];

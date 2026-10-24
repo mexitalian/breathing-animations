@@ -35,7 +35,7 @@ test('existing configs normalize to looping sequences', () => {
     assert.equal(cfg.sequence.rounds, Infinity);
     assert.equal(cfg.sequence.steps.length, 1);
   }
-  assert.deepEqual(normalize(box).components, ['track', 'glow', 'core', 'dot']);
+  assert.deepEqual(normalize(box).components, ['track', 'glow', 'particles', 'core', 'dot']);
   assert.deepEqual(normalize(resonance).components, ['ring', 'ripple', 'glow', 'particles', 'core']);
   assert.deepEqual(normalize(fourSevenEight).components, ['ring', 'glow', 'particles', 'core']);
 });

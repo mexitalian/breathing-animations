@@ -113,7 +113,7 @@ function dataRow() {
 
 // Pattern: the settings panel, opened from the gear. Uses the screen pattern so it
 // sits over the stage like the start and summary screens. Changes apply at once.
-export function openSettings({ particleOptions = [['on', 'On'], ['off', 'Off'], ['webgl', 'WebGL (test)']] } = {}) {
+export function openSettings({ particleOptions = [['webgl', 'WebGL'], ['on', 'Standard'], ['off', 'Off']] } = {}) {
   const settings = readSettings();
   const titleId = `settings-title-${++panelId}`;
   const screen = el('div', 'screen settings');

@@ -47,7 +47,7 @@ A session is one full-screen shape that grows on the in-breath and shrinks on th
 - **Shapes:** a circle for most techniques, a square for Box (the marker travels clockwise) and a triangle for Triangle. Shapes fill the screen width.
 - **Marker:** a small square or triangle that travels the shape's inner edge. It is the fill colour and cuts a hole in the fill where they overlap.
 - **Layers:** ring, track, outline, glow, heat, core, particles and ripple. Each technique turns on only what suits it.
-- **Particles:** drift between named radii each phase. Standard, Off, or a WebGL test version, chosen in Settings.
+- **Particles:** drift between named radii each phase, on every technique. On Box and Triangle they follow the shape's edges. WebGL by default (falls back to standard where WebGL isn't available), or Standard or Off in Settings.
 - **Cycle counter:** cycles done. In open-ended techniques each finished cycle adds a mark top left, plus a number.
 - **Pace control:** for Resonance, Extended Exhale and Connected Breathing, breaths per minute can change during the session.
 - **Safety screen:** before the five Energise techniques, with "don't show this again" per technique.
@@ -80,7 +80,7 @@ The gear on the home screen and in every session opens one panel. Changes apply 
 | Setting | Options | Default | Shown on |
 | --- | --- | --- | --- |
 | Theme | System, Light, Dark | System | Everywhere |
-| Particles | On, Off, WebGL (test) | On | Everywhere |
+| Particles | WebGL, Standard, Off | WebGL | Everywhere |
 | Sound | On/Off + volume slider | On, 60% | Where audio works |
 | Keep screen on | On, Off | On | Everywhere |
 | Vibration | On, Off | On | Devices that can vibrate |

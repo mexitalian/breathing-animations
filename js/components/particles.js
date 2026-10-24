@@ -1,6 +1,7 @@
 import { el } from '../dom.js';
 import { noise1D } from '../noise.js';
 import { createGlParticles } from './particles-gl.js';
+import { outlineFor, outlinePoint } from '../particle-outline.js';
 
 // Particles drift between named radii (fractions of the field radius) once per phase.
 // Each phase sets { from, to }; a phase without `particles` hides them.
@@ -9,10 +10,13 @@ import { createGlParticles } from './particles-gl.js';
 // Optional orbit: degrees per second makes particles circle continuously across
 // phases (no fade or re-seed at boundaries), for connected breathing.
 // Open-ended holds loop the drift every HOLD_LOOP_MS.
+// On Box and Triangle the radii are scaled copies of the shape's outline, so the
+// particles follow its edges (js/particle-outline.js).
 const HOLD_LOOP_MS = 4000;
 
 export function particles({ field, cfg }) {
   const { count, radii } = cfg.particles;
+  const outline = outlineFor(cfg.shape);
   const layer = el('div', 'particle-layer');
   field.append(layer);
 
@@ -41,7 +45,7 @@ export function particles({ field, cfg }) {
   };
 
   function update(snap) {
-    const mode = document.documentElement.dataset.particles ?? 'on';
+    const mode = document.documentElement.dataset.particles ?? 'webgl';
     if (mode === 'webgl' && !glFailed) {
       try {
         gl ??= createGlParticles({ field, layer, cfg });
@@ -76,8 +80,8 @@ export function particles({ field, cfg }) {
     }
 
     const R = field.clientWidth / 2;
-    const fromR = R * (radii[motion.from] ?? 0);
-    const toR = R * (radii[motion.to] ?? 0);
+    const fromR = radii[motion.from] ?? 0;
+    const toR = radii[motion.to] ?? 0;
     // Full fade at each phase boundary hides the re-seeded placement.
     const envelope = motion.orbit ? 1 : Math.sin(frac * Math.PI);
 
@@ -88,7 +92,8 @@ export function particles({ field, cfg }) {
         : n * Math.PI * 2);
       const spread = 0.65 + noise1D(p.radiusSeed + phaseSeed * 13.7) * 0.55;
       const r = (fromR + (toR - fromR) * frac ** p.speedExp) * spread;
-      p.node.style.transform = `translate(${Math.cos(angle) * r}px,${Math.sin(angle) * r}px) scale(${p.sizeJitter})`;
+      const [x, y] = outlinePoint(outline, angle, r);
+      p.node.style.transform = `translate(${x * R}px,${y * R}px) scale(${p.sizeJitter})`;
       p.node.style.opacity = envelope * p.opacityJitter;
     }
   }

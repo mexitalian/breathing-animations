@@ -38,7 +38,7 @@ export function createPerfOverlay() {
   function render(now) {
     const seconds = (now - windowStart) / 1000;
     const fps = frames / seconds;
-    const mode = document.documentElement.dataset.particles ?? 'on';
+    const mode = document.documentElement.dataset.particles ?? 'webgl';
     const lines = [
       `${fps.toFixed(0)} fps · script ${(scriptTotal / Math.max(1, frames)).toFixed(1)} ms avg, ${scriptMax.toFixed(1)} max`,
       `particles: ${mode}`,
